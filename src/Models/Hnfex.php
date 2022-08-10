@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use phpDocumentor\Reflection\Types\Integer;
 
 /**
  * Classe responsável por gerenciar o cabeçalho da NF-e
@@ -141,9 +142,9 @@ class Hnfex extends Model
     }
 
     /**
-     * Método responsável por persistir o cabeçalho da NF-e
+     * Método responsável por persistir os dados do cabeçalho da NF-e
      */
-    public static function createHnfex(Request $data)
+    public static function createHnfex(int $empresa_id, int $usuario_id, Request $data)
     {
         $status = false;
         $excessao = null;
@@ -237,10 +238,8 @@ class Hnfex extends Model
                 'infprot_cstat' =>  $data['infprot_cstat'],
                 'infprot_xmotivo' =>  $data['infprot_xmotivo'],
 
-                /*
-                'empresa_id' =>  $data['empresa_id'],
-                'usuario_id' =>  $data['usuario_id'],
-                */
+                'empresa_id' =>  $empresa_id,
+                'usuario_id' =>  $usuario_id,
             ]);
 
             $status = true;
@@ -258,7 +257,7 @@ class Hnfex extends Model
         return ["status" => $status, "excessao" => $excessao, "mensagem" => $mensagem, "obj" => $obj];
     }
 
-    public static function importarXML(string $arquivo)
+    public static function importarXML(int $empresa_id, int $usuario_id, string $arquivo)
     {
         $status = false;
         $excessao = null;
@@ -269,9 +268,7 @@ class Hnfex extends Model
 
             $xmldata = simplexml_load_file($arquivo);
 
-            //dd($xmldata->children()->NFe->infNFe);
-
-            $data = new HnfexRequest();
+            $data = new Request();
             $data->setMethod('POST');
             $data->replace([
                 'ide_cuf' => (string)$xmldata->children()->NFe->infNFe->ide->cUF,
@@ -359,7 +356,45 @@ class Hnfex extends Model
                 'infprot_xmotivo' =>  (string)$xmldata->children()->protNFe->infProt->xMotivo,
             ]);
 
-            $retorno = Hnfex::createHnfex($data);
+            $retorno = Hnfex::createHnfex($empresa_id, $usuario_id, $data);
+
+            if ($retorno['status']) {
+                foreach ($xmldata->children()->NFe->infNFe->det as $det) {
+                    $data_item = new Request();
+                    $data_item->setMethod('POST');
+                    $data_item->replace([
+                        'prod_cprod' => (string)$det->prod->cProd,
+                        'prod_cean' => (string)$det->prod->cEAN,
+                        'prod_xprod' => (string)$det->prod->xProd,
+                        'prod_ncm' => (string)$det->prod->NCM,
+                        'prod_ex_tipi' => (string)$det->prod->EXTIPI,
+                        'prod_cfop' => (string)$det->prod->CFOP,
+                        'prod_ucom' => (string)$det->prod->uCom,
+                        'prod_qcom' => (string)$det->prod->qCom,
+                        'prod_vuncom' => (string)$det->prod->vUnCom,
+                        'prod_vprod' => (string)$det->prod->vProd,
+                        'prod_ceantrib' => (string)$det->prod->cEANTrib,
+                        'prod_utrib' => (string)$det->prod->uTrib,
+                        'prod_qtrib' => (string)$det->prod->qTrib,
+                        'prod_vuntrib' => (string)$det->prod->vUnTrib,
+                        'prod_vfrete' => (string)$det->prod->vFrete,
+                        'prod_vseg' => (string)$det->prod->vSeg,
+                        'prod_vdesc' => (string)$det->prod->vDesc,
+                        'prod_voutro' => (string)$det->prod->vOutro,
+                        'prod_indtot' => (string)$det->prod->indTot,
+                    ]);
+
+                    $retorno_item = Hnfei::createHnfei($retorno["obj"], $data_item);
+
+                    if (!$retorno_item['status']) {
+                        $retorno['status'] = $retorno_item['status'];
+                        $retorno['mensagem'] = $retorno_item['mensagem'];
+                        $retorno['excessao'] = $retorno_item['excessao'];
+
+                        break;
+                    }
+                }
+            }
 
             $status = true;
             $mensagem = "XML importado com sucesso";
@@ -377,7 +412,6 @@ class Hnfex extends Model
             $status = false;
             $mensagem = sprintf("Ocorreu um erro inesperado Método: %s", __METHOD__);
             $excessao = $th;
-            DB::rollBack();
         }
 
         return ["status" => $status, "excessao" => $excessao, "mensagem" => $mensagem];

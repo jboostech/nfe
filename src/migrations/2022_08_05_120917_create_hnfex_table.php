@@ -94,10 +94,9 @@ class CreateHnfexTable extends Migration
             $table->string('infprot_cstat', 3);
             $table->string('infprot_xmotivo', 255);
 
-            /*
             $table->bigInteger('empresa_id');
             $table->bigInteger('usuario_id');
-            */
+
             $table->timestamps();
         });
     }

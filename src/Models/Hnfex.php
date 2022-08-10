@@ -257,6 +257,17 @@ class Hnfex extends Model
         return ["status" => $status, "excessao" => $excessao, "mensagem" => $mensagem, "obj" => $obj];
     }
 
+    /**
+     * Método responsável por importar um arquivo XML
+     *
+     * @param integer $empresa_id ID da empresa responsável por armazenar os dados da NF-e, caso não possua, informar 1
+     * @param integer $usuario_id ID do usuário responsável por armazenar os dados da NF-e, caso não possua, informar 1
+     * @param string $arquivo Diretório, nome e extensão do arquivo XML, por exemplo, /home/joao/Documents/dump/xml/arquivo.xml
+     * @return array Retorna um array com a seguinte estrutura:
+     *                      status: True informa que a operação foi bem sucedida
+     *                      excessao: Retorna a excessão caso algum problema tenha ocorrido
+     *                      mensagem: Descreve o status da operação
+     */
     public static function importarXML(int $empresa_id, int $usuario_id, string $arquivo)
     {
         $status = false;

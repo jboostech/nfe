@@ -50,7 +50,7 @@ Para utilizar o pacote, siga o seguinte exemplo:
 
 1) Salve alguns XML's de NF-e's autorizadas em um determinado diretório
 2) Crie no seu projeto um Controller chamado TesteController
-3) Adicione um método a este controller
+3) Adicione o seguinte método a este controller
 ```
 public function teste()
 {
@@ -67,7 +67,7 @@ public function teste()
     echo "XML's importados!";
 }
 ```
-4) Crie uma rota para este método
+4) Crie uma rota para o método
     'Route::get('/teste', [App\Http\Controllers\TesteController::class, 'teste'])->name('teste.teste');'
 5) Acesse a rota http://localhost:8000/teste através do seu browser
 6) O sistema realizará a importação dos XML's e caso dê tudo certo, a seguinte mensagem será apresentada: XML's importados!

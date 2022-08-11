@@ -45,21 +45,22 @@ Para utilizar o pacote, siga o seguinte exemplo:
 1) Salve alguns XML's de NF-e's autorizadas em um determinado diretório
 2) Crie no seu projeto um Controller chamado TesteController
 3) Adicione um método a este controller
-    'public function teste()
-    {
-        $diretorio = "<diretorio_dos_xmls>";
+```
+public function teste()
+{
+    $diretorio = "<diretorio_dos_xmls>";
 
-        foreach (array_diff(scandir($diretorio), array('..', '.')) as $item) {
-            $retorno = Hnfex::importarXML(1, 2, sprintf("%s/%s", $diretorio, $item));
+    foreach (array_diff(scandir($diretorio), array('..', '.')) as $item) {
+        $retorno = Hnfex::importarXML(1, 2, sprintf("%s/%s", $diretorio, $item));
 
-            if (!$retorno['status']) {
-                dd($retorno['excessao']);
-            }
+        if (!$retorno['status']) {
+            dd($retorno['excessao']);
         }
+    }
 
-        echo "XML's importados!";
-    }'
-
+    echo "XML's importados!";
+}
+```
 4) Crie uma rota para este método
     'Route::get('/teste', [App\Http\Controllers\TesteController::class, 'teste'])->name('teste.teste');'
 5) Acesse a rota http://localhost:8000/teste através do seu browser

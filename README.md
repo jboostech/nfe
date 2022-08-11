@@ -4,9 +4,7 @@ Este pacote tem o objetivo de abstrair métodos que permitam ao desenvolvedor ma
 
 ## 🚀 Começando
 
-Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento e teste.
-
-Consulte **Implantação** para saber como implantar o projeto.
+Os passos a seguir descreverão a instalação do pacote e a sua utilização
 
 ### 📋 Pré-requisitos
 

@@ -19,9 +19,12 @@ Este pacote foi desenvolvido com as seguintes tecnologias:
 ### 🔧 Instalação
 
 1) Acesse a pasta do projeto na qual você deseja instalar o pacote (lembre-se dos pré-requisitos)
-2) Execute o comando: composer require boostech/nfe
-3) Será criada a pasta vendor/boostech/nfe
-4) Edite o arquivo /<nome_projeto>/config/app.php e adicione a linha Boostech\Nfe\Providers\NfeServiceProvider::class dentro da tag providers
+2) Execute o comando:
+```
+composer require boostech/nfe
+```
+4) Será criada a pasta vendor/boostech/nfe
+5) Edite o arquivo /<nome_projeto>/config/app.php e adicione a linha Boostech\Nfe\Providers\NfeServiceProvider::class dentro da tag providers
 ```
 'providers' => [
     ...

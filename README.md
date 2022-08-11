@@ -22,6 +22,7 @@ Este pacote foi desenvolvido com as seguintes tecnologias:
 2) Execute o comando: composer require boostech/nfe
 3) Será criada a pasta vendor/boostech/nfe
 4) Edite o arquivo /<nome_projeto>/config/app.php e adicione a linha Boostech\Nfe\Providers\NfeServiceProvider::class dentro da tag providers
+    '''
     'providers' => [
         ...
         ...
@@ -31,6 +32,7 @@ Este pacote foi desenvolvido com as seguintes tecnologias:
         Boostech\Nfe\Providers\NfeServiceProvider::class,
 
     ],
+    '''
 5) Dentro da raiz do diretório do seu projeto, execute o comando php artisan migrate
 6) Serão criadas duas tabelas no seu banco de dados:
     - boostech_nfe_hnfex: Tabela responsável por gerenciar o cabeçalho das NF-e's

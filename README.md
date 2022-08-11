@@ -33,8 +33,11 @@ Este pacote foi desenvolvido com as seguintes tecnologias:
 
 ],
 ```
-5) Dentro da raiz do diretório do seu projeto, execute o comando php artisan migrate
-6) Serão criadas duas tabelas no seu banco de dados:
+5) Dentro da raiz do diretório do seu projeto, execute o comando:
+```
+php artisan migrate
+```
+7) Serão criadas duas tabelas no seu banco de dados:
     - boostech_nfe_hnfex: Tabela responsável por gerenciar o cabeçalho das NF-e's
     - boostech_nfe_hnfei: Tabela responsável por gerenciar os itens das NF-e's
 

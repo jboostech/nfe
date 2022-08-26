@@ -34,9 +34,11 @@ composer require boostech/nfe
 
 ],
 ```
-5) Dentro da raiz do diretório do seu projeto, execute o comando:
+5) Dentro da raiz do diretório do seu projeto, execute os comandos:
 ```
+php artisan optimize
 php artisan migrate
+
 ```
 7) Serão criadas duas tabelas no seu banco de dados:
     - boostech_nfe_hnfex: Tabela responsável por gerenciar o cabeçalho das NF-e's

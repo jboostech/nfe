@@ -12,25 +12,25 @@ class CreateHnfeiTable extends Migration
 
             $table->bigIncrements('id');
             $table->bigInteger('nf_id');
-            $table->string('prod_cprod', 60);
-            $table->string('prod_cean', 14);
-            $table->string('prod_xprod', 120);
-            $table->string('prod_ncm', 8);
-            $table->string('prod_ex_tipi', 3)->nullable();
-            $table->string('prod_cfop', 4);
-            $table->string('prod_ucom', 6);
-            $table->float('prod_qcom', 15, 4);
-            $table->float('prod_vuncom', 20, 10);
-            $table->float('prod_vprod', 15, 2);
-            $table->string('prod_ceantrib', 14);
-            $table->string('prod_utrib', 6);
-            $table->float('prod_qtrib', 11, 4);
-            $table->float('prod_vuntrib', 20, 10);
+            $table->string('prod_cprod', 60)->nullable(true);
+            $table->string('prod_cean', 14)->nullable(true);
+            $table->string('prod_xprod', 120)->nullable(true);
+            $table->string('prod_ncm', 8)->nullable(true);
+            $table->string('prod_ex_tipi', 3)->nullable(true);
+            $table->string('prod_cfop', 4)->nullable(true);
+            $table->string('prod_ucom', 6)->nullable(true);
+            $table->float('prod_qcom', 15, 4)->nullable(true);
+            $table->float('prod_vuncom', 20, 10)->nullable(true);
+            $table->float('prod_vprod', 15, 2)->nullable(true);
+            $table->string('prod_ceantrib', 14)->nullable(true);
+            $table->string('prod_utrib', 6)->nullable(true);
+            $table->float('prod_qtrib', 11, 4)->nullable(true);
+            $table->float('prod_vuntrib', 20, 10)->nullable(true);
             $table->float('prod_vfrete', 15, 2)->nullable();
             $table->float('prod_vseg', 15, 2)->nullable();
             $table->float('prod_vdesc', 15, 2)->nullable();
             $table->float('prod_voutro', 15, 2)->nullable();
-            $table->string('prod_indtot', 1);
+            $table->string('prod_indtot', 1)->nullable(true);
 
             /*
             $table->float('imposto_vtottrib', 15, 2);
